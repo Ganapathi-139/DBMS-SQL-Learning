@@ -2,143 +2,156 @@
 
 ## 1. What is an ER Model?
 
-The **Entity-Relationship (ER) model** is used to represent the structure of a database using:
+The Entity-Relationship (ER) model is a conceptual model used to design the structure of a database.
 
-* Entities
-* Attributes
-* Relationships
-* Constraints
+It represents:
 
-It is mainly used during **database design**.
+* **Entities** – objects such as Student, Course, Employee
+* **Attributes** – properties such as StudentID, Name, Email
+* **Relationships** – connections between entities
 
 ---
 
-## 2. Entity
+## 2. Entities
 
-An **entity** is a real-world object that can be identified separately.
+An **entity** is a real-world object about which data is stored.
 
 Examples:
 
-```text
-Student
-Course
-Faculty
-Department
-Employee
-```
+* Student
+* Course
+* Faculty
+* Department
 
----
+### Entity Set
 
-## 3. Attribute
-
-An **attribute** describes a property of an entity.
+An entity set is a collection of similar entities.
 
 Example:
 
-```text
-Student
-├── StudentID
-├── StudentName
-├── DOB
-└── Email
-```
-
-Types commonly discussed:
-
-* Simple attribute
-* Composite attribute
-* Single-valued attribute
-* Multi-valued attribute
-* Derived attribute
+`STUDENT` → Student entity set
 
 ---
 
-## 4. Entity Set
+## 3. Attributes
 
-An **entity set** is a collection of similar entities.
+An attribute describes a property of an entity.
 
 Example:
 
-```text
-Student
-----------------
-101 | Alice
-102 | Bob
-103 | Carol
-```
+**STUDENT**
 
-All these student entities form the **Student entity set**.
+* StudentID
+* StudentName
+* DOB
+* Email
 
 ---
 
-## 5. Relationship
+## 4. Relationships
 
-A **relationship** represents an association between entities.
+A relationship shows how entities are connected.
 
-Example:
+Examples:
 
-```text
-Student ─── Enrolls ─── Course
+* Student **enrolls in** Course
+* Faculty **teaches** Course
+* Student **belongs to** Department
+
+### Example ER Diagram
+
+The following diagram shows the relationship between students and courses through enrollment:
+
+```mermaid
+erDiagram
+    STUDENT {
+        int StudentID PK
+        string StudentName
+        date DOB
+        string Email
+    }
+
+    COURSE {
+        int CourseID PK
+        string CourseName
+        int Credits
+    }
+
+    ENROLLMENT {
+        int EnrollmentID PK
+        int StudentID FK
+        int CourseID FK
+        date EnrollmentDate
+    }
+
+    STUDENT ||--o{ ENROLLMENT : enrolls
+    COURSE ||--o{ ENROLLMENT : contains
 ```
 
-A student can enroll in a course.
+**What the diagram shows:**
+
+* One student can have many enrollments.
+* One course can have many enrollments.
+* `ENROLLMENT` connects `STUDENT` and `COURSE`.
+* `StudentID` and `CourseID` in `ENROLLMENT` are foreign keys.
 
 ---
 
-## 6. Cardinality
+## 5. Cardinality
 
 Cardinality describes how many entities can participate in a relationship.
 
-### One-to-One (1:1)
+### 1:1 — One-to-One
 
-```text
-Person ─── Passport
-```
+One entity is related to one entity.
 
-One person has one passport.
+Example:
+`Person → Passport`
 
-### One-to-Many (1:N)
+### 1:N — One-to-Many
 
-```text
-Department ─── Student
-```
+One entity is related to many entities.
 
-One department can have many students.
+Example:
+`Department → Students`
 
-### Many-to-Many (M:N)
+### M:N — Many-to-Many
 
-```text
-Student ─── Course
-```
+Many entities are related to many entities.
 
-A student can take many courses, and a course can have many students.
+Example:
+`Students ↔ Courses`
+
+Usually, an M:N relationship is converted into a separate table such as `ENROLLMENT`.
 
 ---
 
-## 7. Specialization and Generalization
-
-### Specialization
-
-A superclass is divided into more specific subclasses.
-
-```text
-        Employee
-        /      \
-     Faculty   Staff
-```
+## 6. Specialization and Generalization
 
 ### Generalization
 
-Multiple lower-level entities are combined into a higher-level entity.
+Combining similar entities into a higher-level entity.
 
-```text
-Faculty ─┐
-         ├── Employee
-Staff ───┘
-```
+Example:
+
+`Faculty` + `Staff` → `Employee`
+
+### Specialization
+
+Dividing a general entity into specialized entities.
+
+Example:
+
+`Employee`
+→ `Faculty`
+→ `Staff`
 
 ---
 
 ## Key Takeaway
 
-> The **ER model describes entities, their attributes, and relationships before implementing the database using tables.**
+The ER model helps us design a database before writing SQL.
+
+**Entity → Table**
+**Attribute → Column**
+**Relationship → Foreign Key / Relationship Table**
