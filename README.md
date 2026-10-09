@@ -83,12 +83,15 @@ DBMS-SQL-Learning/
 │   ├── 05-query-optimization.md
 │   └── 06-backup-and-recovery.md
 │
-└── PROJECT/
-    └── university-database/
-        ├── schema.sql
-        ├── data.sql
-        ├── queries.sql
-        └── README.md
+PROJECT/
+└── online-shopping-management-system/
+    ├── README.md
+    ├── schema.sql
+    ├── data.sql
+    ├── basic-queries.sql
+    ├── joins-and-aggregates.sql
+    ├── views-and-subqueries.sql
+    └── indexes-and-transactions.sql
 ```
 
 ---
@@ -302,7 +305,7 @@ Each SQL file focuses on one concept so that beginners can understand exactly wh
 
 # 🚀 Final Project
 
-The repository will end with a **University Database** project that combines concepts learned throughout the course.
+The repository will end with a **Online Shopping Management System** project that combines concepts learned throughout the course.
 
 The project will include:
 
@@ -353,4 +356,4 @@ By completing this repository, you should be able to:
 * [ ] Unit III — ER Model & Advanced SQL
 * [ ] Unit IV — Normalization & Transactions
 * [ ] Unit V — Indexing & Database Tuning
-* [ ] Final University Database Project
+* [ ] Online Shopping Management System
